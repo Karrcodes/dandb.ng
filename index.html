@@ -281,29 +281,6 @@
         .pro-gallery-indicator-wrapper {
             position: relative;
         }
-        /* Only ONE indicator per wrapper */
-        .pro-gallery-indicator-wrapper::after {
-            content: "⇄ Drag";
-            position: absolute;
-            bottom: 50%;
-            right: 20px; 
-            transform: translateY(50%);
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-size: 14px;
-            pointer-events: none;
-            z-index: 999;
-            opacity: 1; /* Start visible */
-            transition: opacity 0.5s ease-in-out;
-            will-change: opacity; /* Hardware acceleration */
-        }
-        
-        /* Fade Out Class */
-        .pro-gallery-indicator-wrapper.scrolled-active::after {
-            opacity: 0;
-        }
     </style>
     
 </head>
@@ -4162,58 +4139,11 @@ PRODUCTION</span></span></h3></div><div id="comp-l5kwdtvu3" class="Z_l5lU ku3DBC
                 if (gallery.closest('.pro-gallery-indicator-wrapper')) return;
 
                 // CHECK if this gallery actually has scrollable content?
-                // Just to be safe, so we don't show indicators on empty boxes.
                 let descendants = getDescendants(gallery);
                 let hasScrollable = descendants.some(d => d.scrollWidth > d.clientWidth + 5);
                 
                 if (hasScrollable) {
                     gallery.classList.add('pro-gallery-indicator-wrapper');
-                    
-                    // Add cursor style to indicate draggable
-                    gallery.style.cursor = 'grab';
-                    gallery.addEventListener('mousedown', () => {
-                        gallery.style.cursor = 'grabbing';
-                    });
-                    gallery.addEventListener('mouseup', () => {
-                        gallery.style.cursor = 'grab';
-                    });
-                    gallery.addEventListener('mouseleave', () => {
-                        gallery.style.cursor = 'grab';
-                    });
-                    
-                    // OPTIMIZED SCROLL LISTENER
-                    let ticking = false;
-                    
-                    gallery.addEventListener('scroll', (e) => {
-                        if (!ticking) {
-                            window.requestAnimationFrame(() => {
-                                // Check DOM state before writing to avoid thrashing
-                                const isScrolled = e.target.scrollLeft > 10;
-                                const hasClass = gallery.classList.contains('scrolled-active');
-                                
-                                if (isScrolled && !hasClass) {
-                                    gallery.classList.add('scrolled-active');
-                                } else if (!isScrolled && hasClass) {
-                                    gallery.classList.remove('scrolled-active');
-                                }
-                                ticking = false;
-                            });
-                            ticking = true;
-                        }
-                    }, { capture: true, passive: true }); // <--- CRITICAL: CAPTURE & PASSIVE
-                    
-                    // Also capture touch interactions (throttled)
-                     gallery.addEventListener('touchmove', () => {
-                         if (!ticking) {
-                             window.requestAnimationFrame(() => {
-                                 if (!gallery.classList.contains('scrolled-active')) {
-                                     gallery.classList.add('scrolled-active');
-                                 }
-                                 ticking = false;
-                             });
-                             ticking = true;
-                         }
-                     }, { capture: true, passive: true });
                 }
             });
 
