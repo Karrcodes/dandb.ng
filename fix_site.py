@@ -248,6 +248,74 @@ def fix_site():
             .trusted-logo { height: 50px; }
             .trusted-marquee-track { gap: 30px; }
         }
+        
+        /* Comprehensive Mobile Optimizations */
+        @media (max-width: 768px) {
+            /* Ensure no horizontal overflow */
+            body, html {
+                overflow-x: hidden !important;
+                max-width: 100vw;
+            }
+            
+            /* Make header mobile-friendly */
+            #SITE_HEADER {
+                min-width: 100% !important;
+            }
+            
+            /* Improve touch targets - minimum 44x44px */
+            button, a, input, select, textarea {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            /* Optimize galleries for mobile */
+            .pro-gallery {
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            /* Ensure scroll indicators are visible on mobile */
+            .pro-gallery-indicator-wrapper::after {
+                font-size: 12px;
+                padding: 6px 10px;
+                right: 10px;
+            }
+            
+            /* Reduce header height on mobile */
+            #SITE_HEADER {
+                padding: 10px 0;
+            }
+            
+            /* Make text more readable on mobile */
+            body {
+                -webkit-text-size-adjust: 100%;
+                text-size-adjust: 100%;
+            }
+            
+            /* Optimize spacing for mobile */
+            .trusted-marquee-container {
+                height: 100px !important;
+            }
+            
+            .trusted-logo {
+                height: 60px !important;
+            }
+        }
+        
+        /* Extra small devices (phones in portrait, less than 576px) */
+        @media (max-width: 575px) {
+            /* Further reduce sizes for very small screens */
+            .trusted-marquee-container {
+                height: 80px !important;
+            }
+            
+            .trusted-logo {
+                height: 50px !important;
+            }
+            
+            .trusted-marquee-track {
+                gap: 20px !important;
+            }
+        }
 
         /* Scroll Indicator Overlay */
         .pro-gallery-indicator-wrapper {
@@ -317,47 +385,51 @@ def fix_site():
                 // Skip if already processed
                 if (gallery.classList.contains('pro-gallery-indicator-wrapper')) return;
                 
-                // Skip if inside another wrapper (deduplication for nested galleries)
-                if (gallery.closest('.pro-gallery-indicator-wrapper')) return;
-                
                 // CHECK if this gallery actually has scrollable content
                 let descendants = getDescendants(gallery);
                 let scrollableEl = descendants.find(d => d.scrollWidth > d.clientWidth + 5);
                 
-                if (scrollableEl) {
-                    gallery.classList.add('pro-gallery-indicator-wrapper');
-                    
-                    // Fade indicator on scroll
-                    let ticking = false;
-                    scrollableEl.addEventListener('scroll', () => {
-                        if (!ticking) {
-                            window.requestAnimationFrame(() => {
-                                const isScrolled = scrollableEl.scrollLeft > 5;
-                                
-                                if (isScrolled) {
-                                    gallery.classList.add('scrolled-active');
-                                } else {
-                                    gallery.classList.remove('scrolled-active');
-                                }
-                                ticking = false;
-                            });
-                            ticking = true;
-                        }
-                    }, { passive: true });
-                    
-                    // Also handle touch
-                    scrollableEl.addEventListener('touchmove', () => {
-                        if (!ticking) {
-                            window.requestAnimationFrame(() => {
-                                if (scrollableEl.scrollLeft > 5) {
-                                    gallery.classList.add('scrolled-active');
-                                }
-                                ticking = false;
-                            });
-                            ticking = true;
-                        }
-                    }, { passive: true });
-                }
+                if (!scrollableEl) return; // No scrollable content
+                
+                // Skip if this gallery is inside another gallery wrapper (nested case)
+                // Check parent galleries, not including self
+                const parentGalleries = Array.from(document.querySelectorAll('.pro-gallery-indicator-wrapper'));
+                const isNested = parentGalleries.some(parent => parent !== gallery && parent.contains(gallery));
+                if (isNested) return;
+                
+                // Add wrapper class
+                gallery.classList.add('pro-gallery-indicator-wrapper');
+                
+                // Fade indicator on scroll
+                let ticking = false;
+                scrollableEl.addEventListener('scroll', () => {
+                    if (!ticking) {
+                        window.requestAnimationFrame(() => {
+                            const isScrolled = scrollableEl.scrollLeft > 5;
+                            
+                            if (isScrolled) {
+                                gallery.classList.add('scrolled-active');
+                            } else {
+                                gallery.classList.remove('scrolled-active');
+                            }
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                }, { passive: true });
+                
+                // Also handle touch
+                scrollableEl.addEventListener('touchmove', () => {
+                    if (!ticking) {
+                        window.requestAnimationFrame(() => {
+                            if (scrollableEl.scrollLeft > 5) {
+                                gallery.classList.add('scrolled-active');
+                            }
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                }, { passive: true });
             });
 
             // AUTO-SCROLL for Trusted By (JavaScript-based, performant)
