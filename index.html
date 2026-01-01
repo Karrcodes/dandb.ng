@@ -277,91 +277,132 @@
             .trusted-marquee-track { gap: 30px; }
         }
         
-        /* Simplified Mobile-Only Layout */
-        @media (max-width: 768px) {
-            /* RESET: Remove all Wix complexity on mobile */
-            * {
-                position: relative !important;
-                left: auto !important;
-                right: auto !important;
-                margin-left: 0 !important;
-                margin-right: 0 !important;
-            }
-            
-            /* Force everything to stack vertically */
-            body, html {
-                overflow-x: hidden !important;
-                width: 100vw !important;
+        /* Wix-Style Mobile Layout (Recreated) */
+        @media (max-width: 767px) {
+            /* Core Wix Mobile Pattern: Single Column Grid */
+            body {
+                width: 100% !important;
                 max-width: 100vw !important;
+                overflow-x: hidden !important;
             }
             
-            /* Simplify header */
+            /* Force single-column mesh layout like Wix */
+            #masterPage {
+                grid-template-columns: 100% !important;
+                grid-template-rows: max-content max-content min-content max-content !important;
+            }
+            
+            /* Container width constraints */
+            #SITE_CONTAINER, #site-root {
+                max-width: 100vw !important;
+                width: 100% !important;
+            }
+            
+            /* Header: Fixed at top */
             #SITE_HEADER {
                 position: fixed !important;
                 top: 0 !important;
                 width: 100% !important;
-                min-width: 100% !important;
-                background: rgba(0, 0, 0, 0.9) !important;
-                padding: 10px 0 !important;
+                background: rgba(0, 0, 0, 0.95) !important;
                 z-index: 9999 !important;
+                padding: 10px 0 !important;
             }
             
-            /* Hide desktop menu, show mobile-friendly version */
+            /* Hide desktop menu */
             #comp-kxm44xig {
                 display: none !important;
             }
             
-            /* Center logo */
+            /* Logo: Smaller and left-aligned */
             #comp-kxm450bm {
-                margin: 0 auto !important;
-                display: block !important;
-                text-align: center !important;
+                width: 60px !important;
+                height: auto !important;
+                margin-left: 15px !important;
             }
             
-            /* Force all content containers to full width */
-            #PAGES_CONTAINER, #SITE_PAGES, #masterPage,
-            [data-mesh-id*="inlineContent"],
-            [data-mesh-id*="gridContainer"],
-            div[id^="comp-"] {
-                width: 100% !important;
-                min-width: 100% !important;
-                max-width: 100vw !important;
-                padding-left: 15px !important;
-                padding-right: 15px !important;
-                box-sizing: border-box !important;
+            #comp-kxm450bm img {
+                max-width: 60px !important;
+                height: auto !important;
             }
             
-            /* Stack all grid items vertically */
+            /* Force all grid containers to single column */
             [data-mesh-id*="gridContainer"] {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
+                display: grid !important;
+                grid-template-columns: 100% !important;
+                grid-auto-rows: auto !important;
+                padding: 0 20px !important;
                 gap: 20px !important;
             }
             
-            /* Make all images responsive */
-            img, video, [data-mesh-id*="image"] {
+            /* Reset all positioned elements */
+            [data-mesh-id*="gridContainer"] > * {
+                position: relative !important;
+                left: 0 !important;
+                right: 0 !important;
+                margin: 0 !important;
+                grid-column: 1 !important;
+                justify-self: stretch !important;
+            }
+            
+            /* All components full width */
+            div[id^="comp-"] {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+                left: 0 !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+            
+            /* Typography scaling (Wix reduces heading sizes) */
+            h1, .font_3 {
+                font-size: 36px !important;
+                line-height: 1.2em !important;
+            }
+            
+            h2, .font_4 {
+                font-size: 28px !important;
+                line-height: 1.25em !important;
+            }
+            
+            h3, .font_5 {
+                font-size: 24px !important;
+                line-height: 1.3em !important;
+            }
+            
+            /* Responsive images */
+            img, video {
                 max-width: 100% !important;
                 height: auto !important;
                 width: auto !important;
             }
             
-            /* Optimize galleries for mobile */
+            /* Galleries: Horizontal scroll */
             .pro-gallery {
                 width: 100% !important;
                 max-width: 100vw !important;
-                -webkit-overflow-scrolling: touch;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                scroll-snap-type: x mandatory !important;
+            }
+            
+            .pro-gallery > * {
+                scroll-snap-align: start !important;
             }
             
             /* Trusted By gallery */
             .trusted-marquee-container {
-                height: 80px !important;
+                height: 70px !important;
                 width: 100% !important;
                 max-width: 100vw !important;
             }
             
             .trusted-logo {
-                height: 50px !important;
+                height: 45px !important;
+            }
+            
+            .trusted-marquee-track {
+                gap: 25px !important;
             }
             
             /* Scroll indicators */
@@ -371,35 +412,35 @@
                 right: 10px;
             }
             
-            /* Make text readable */
-            body {
-                font-size: 16px !important;
-                -webkit-text-size-adjust: 100%;
+            /* Footer: Centered and stacked */
+            #SITE_FOOTER {
+                width: 100% !important;
+                padding: 30px 20px !important;
             }
             
-            /* Touch targets */
-            button, a {
-                min-height: 44px;
-                min-width: 44px;
-                padding: 12px 20px !important;
+            #SITE_FOOTER [data-mesh-id*="gridContainer"] {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                gap: 15px !important;
             }
             
-            /* Hide elements that break layout */
+            #SITE_FOOTER * {
+                text-align: center !important;
+                margin: 5px auto !important;
+            }
+            
+            /* Hide problematic elements */
             [style*="left: -"],
             [style*="margin: 0px 0px -"] {
                 display: none !important;
             }
             
-            /* Footer */
-            #SITE_FOOTER {
-                width: 100% !important;
-                padding: 20px 15px !important;
-                text-align: center !important;
-            }
-            
-            #SITE_FOOTER * {
-                text-align: center !important;
-                margin: 10px auto !important;
+            /* Touch targets */
+            a, button {
+                min-height: 44px !important;
+                min-width: 44px !important;
             }
         }
         
