@@ -253,6 +253,30 @@ def fix_site():
         .pro-gallery-indicator-wrapper {
             position: relative;
         }
+        
+        /* Scroll indicator */
+        .pro-gallery-indicator-wrapper::after {
+            content: "Scroll >";
+            position: absolute;
+            bottom: 50%;
+            right: 20px; 
+            transform: translateY(50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+            will-change: opacity;
+        }
+        
+        /* Fade out when scrolled */
+        .pro-gallery-indicator-wrapper.scrolled-active::after {
+            opacity: 0;
+        }
     </style>
     """
     if '</head>' in content:
@@ -262,7 +286,6 @@ def fix_site():
     <script>
         document.addEventListener('scroll', function() {
             const header = document.getElementById('SITE_HEADER');
-            // Throttled header check could also help, but it's global scroll
             if (window.scrollY > 50) {
                 if (!header.classList.contains('scrolled-header')) header.classList.add('scrolled-header');
             } else {
@@ -287,25 +310,53 @@ def fix_site():
                 trustedByContainer.scrollLeft = 0;
             }
 
-            // PROJECT GALLERIES + TRUSTED BY - Indicators
+            // PROJECT GALLERIES - Indicators
             const allGalleries = Array.from(document.querySelectorAll('.pro-gallery'));
             
-            // Also add Trusted By container to the list
-            if (trustedByContainer && !allGalleries.includes(trustedByContainer)) {
-                allGalleries.push(trustedByContainer);
-            }
-            
-             allGalleries.forEach(gallery => {
-                // DEDUPLICATION:
-                // Only act if we aren't inside another wrapper
-                if (gallery.closest('.pro-gallery-indicator-wrapper')) return;
-
-                // CHECK if this gallery actually has scrollable content?
-                let descendants = getDescendants(gallery);
-                let hasScrollable = descendants.some(d => d.scrollWidth > d.clientWidth + 5);
+            allGalleries.forEach(gallery => {
+                // Skip if already processed
+                if (gallery.classList.contains('pro-gallery-indicator-wrapper')) return;
                 
-                if (hasScrollable) {
+                // Skip if inside another wrapper (deduplication for nested galleries)
+                if (gallery.closest('.pro-gallery-indicator-wrapper')) return;
+                
+                // CHECK if this gallery actually has scrollable content
+                let descendants = getDescendants(gallery);
+                let scrollableEl = descendants.find(d => d.scrollWidth > d.clientWidth + 5);
+                
+                if (scrollableEl) {
                     gallery.classList.add('pro-gallery-indicator-wrapper');
+                    
+                    // Fade indicator on scroll
+                    let ticking = false;
+                    scrollableEl.addEventListener('scroll', () => {
+                        if (!ticking) {
+                            window.requestAnimationFrame(() => {
+                                const isScrolled = scrollableEl.scrollLeft > 5;
+                                
+                                if (isScrolled) {
+                                    gallery.classList.add('scrolled-active');
+                                } else {
+                                    gallery.classList.remove('scrolled-active');
+                                }
+                                ticking = false;
+                            });
+                            ticking = true;
+                        }
+                    }, { passive: true });
+                    
+                    // Also handle touch
+                    scrollableEl.addEventListener('touchmove', () => {
+                        if (!ticking) {
+                            window.requestAnimationFrame(() => {
+                                if (scrollableEl.scrollLeft > 5) {
+                                    gallery.classList.add('scrolled-active');
+                                }
+                                ticking = false;
+                            });
+                            ticking = true;
+                        }
+                    }, { passive: true });
                 }
             });
 
