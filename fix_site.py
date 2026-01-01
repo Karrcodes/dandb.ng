@@ -105,12 +105,10 @@ def fix_site():
         
         marquee_items_html += f'<img src="{src}" alt="Partner Logo" class="trusted-logo">'
 
-    # Double the items for seamless loop (A B A B)
+    # Duplicate logos for seamless infinite scroll
     marquee_inner_html = f"""
     <div class="trusted-marquee-container">
         <div class="trusted-marquee-track">
-            {marquee_items_html}
-            {marquee_items_html} 
             {marquee_items_html}
             {marquee_items_html}
         </div>
@@ -122,34 +120,22 @@ def fix_site():
     <style>
         .trusted-marquee-container {
             width: 100%;
-            height: 180px; /* Force sufficient height */
-            overflow: hidden;
-            position: relative;
-            background: transparent; 
+            height: 180px;
+            overflow-x: auto;
+            overflow-y: hidden;
             display: flex;
             align-items: center;
-            /* Reset any weird Wix effects on parent */
-            -webkit-box-reflect: below 0px linear-gradient(transparent, transparent); /* Attempt to cancel reflection */
-            box-shadow: none !important;
         }
         .trusted-marquee-track {
             display: flex;
-            gap: 100px; /* Increased gap for even spacing */
+            gap: 100px;
             width: max-content;
-            animation: trustedMarquee 40s linear infinite;
         }
         .trusted-logo {
-            height: 120px; /* Increased size */
+            height: 120px;
             width: auto;
-            max-width: 250px; /* Prevent huge landscaping logos */
+            max-width: 250px;
             object-fit: contain;
-            /* REMOVED: Grayscale and Opacity */
-            /* REMOVED: Hover effects */
-            -webkit-box-reflect: none !important; /* Explicitly disable reflection */
-        }
-        @keyframes trustedMarquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } 
         }
         
         /* Mobile adjustment */
@@ -254,7 +240,8 @@ def fix_site():
         
         /* Trusted By Manual Fix */
         #comp-l5kwdtqw {
-            overflow: hidden; /* Ensure container clips */
+            overflow-x: auto; /* Make it scrollable */
+            overflow-y: hidden;
         }
         /* Mobile adjustment */
         @media (max-width: 600px) {
@@ -268,7 +255,7 @@ def fix_site():
         }
         /* Only ONE indicator per wrapper */
         .pro-gallery-indicator-wrapper::after {
-            content: "Scroll >";
+            content: "⇄ Drag";
             position: absolute;
             bottom: 50%;
             right: 20px; 
@@ -282,6 +269,7 @@ def fix_site():
             z-index: 999;
             opacity: 1; /* Start visible */
             transition: opacity 0.5s ease-in-out;
+            will-change: opacity; /* Hardware acceleration */
         }
         
         /* Fade Out Class */
@@ -297,12 +285,13 @@ def fix_site():
     <script>
         document.addEventListener('scroll', function() {
             const header = document.getElementById('SITE_HEADER');
+            // Throttled header check could also help, but it's global scroll
             if (window.scrollY > 50) {
-                header.classList.add('scrolled-header');
+                if (!header.classList.contains('scrolled-header')) header.classList.add('scrolled-header');
             } else {
-                header.classList.remove('scrolled-header');
+                if (header.classList.contains('scrolled-header')) header.classList.remove('scrolled-header');
             }
-        });
+        }, { passive: true });
 
         window.addEventListener('load', function() {
             // Helper to get ALL descendants
@@ -315,18 +304,21 @@ def fix_site():
                 return nodes;
             }
 
-            // 1. TRUSTED BY - Manual CSS Marquee (JS Removed)
-            // Logic handled by CSS injection and HTML replacement above.
+            // Reset Trusted By scroll position to start
+            const trustedByContainer = document.querySelector('.trusted-marquee-container');
+            if (trustedByContainer) {
+                trustedByContainer.scrollLeft = 0;
+            }
 
-            // 2. PROJECT GALLERIES - Indicators
+            // PROJECT GALLERIES + TRUSTED BY - Indicators
             const allGalleries = Array.from(document.querySelectorAll('.pro-gallery'));
             
+            // Also add Trusted By container to the list
+            if (trustedByContainer && !allGalleries.includes(trustedByContainer)) {
+                allGalleries.push(trustedByContainer);
+            }
+            
              allGalleries.forEach(gallery => {
-                // Exclude Trusted By (using both exact and fuzzy check)
-                if (gallery.id && gallery.id.includes('comp-l5kwdtqw')) return;
-                if (gallery.closest('#comp-l5kwdtqw')) return; 
-                if (gallery.closest('[id*="comp-l5kwdtqw"]')) return;
-
                 // DEDUPLICATION:
                 // Only act if we aren't inside another wrapper
                 if (gallery.closest('.pro-gallery-indicator-wrapper')) return;
@@ -339,27 +331,94 @@ def fix_site():
                 if (hasScrollable) {
                     gallery.classList.add('pro-gallery-indicator-wrapper');
                     
-                    // CAPTURE SCROLL EVENTS
-                    // Attach listener to the wrapper itself, with capture=true
-                    // This catches ANY scroll event bubbling (or rather, tunneling) down to children
-                    gallery.addEventListener('scroll', (e) => {
-                        // Check if the scroll event came from a horizontal scroll
-                        // We can't easily check 'e.target.scrollLeft' generically, 
-                        // but if *anything* scrolls, we assume user interaction.
-                        // We can check e.target.scrollLeft if we want.
-                        if (e.target && e.target.scrollLeft > 10) {
-                            gallery.classList.add('scrolled-active');
-                        } else if (e.target && e.target.scrollLeft <= 5) {
-                             gallery.classList.remove('scrolled-active');
-                        }
-                    }, { capture: true }); // <--- CRITICAL: CAPTURE PHASE
+                    // Add cursor style to indicate draggable
+                    gallery.style.cursor = 'grab';
+                    gallery.addEventListener('mousedown', () => {
+                        gallery.style.cursor = 'grabbing';
+                    });
+                    gallery.addEventListener('mouseup', () => {
+                        gallery.style.cursor = 'grab';
+                    });
+                    gallery.addEventListener('mouseleave', () => {
+                        gallery.style.cursor = 'grab';
+                    });
                     
-                    // Also capture touch interactions
+                    // OPTIMIZED SCROLL LISTENER
+                    let ticking = false;
+                    
+                    gallery.addEventListener('scroll', (e) => {
+                        if (!ticking) {
+                            window.requestAnimationFrame(() => {
+                                // Check DOM state before writing to avoid thrashing
+                                const isScrolled = e.target.scrollLeft > 10;
+                                const hasClass = gallery.classList.contains('scrolled-active');
+                                
+                                if (isScrolled && !hasClass) {
+                                    gallery.classList.add('scrolled-active');
+                                } else if (!isScrolled && hasClass) {
+                                    gallery.classList.remove('scrolled-active');
+                                }
+                                ticking = false;
+                            });
+                            ticking = true;
+                        }
+                    }, { capture: true, passive: true }); // <--- CRITICAL: CAPTURE & PASSIVE
+                    
+                    // Also capture touch interactions (throttled)
                      gallery.addEventListener('touchmove', () => {
-                         gallery.classList.add('scrolled-active');
+                         if (!ticking) {
+                             window.requestAnimationFrame(() => {
+                                 if (!gallery.classList.contains('scrolled-active')) {
+                                     gallery.classList.add('scrolled-active');
+                                 }
+                                 ticking = false;
+                             });
+                             ticking = true;
+                         }
                      }, { capture: true, passive: true });
                 }
             });
+
+            // AUTO-SCROLL for Trusted By (JavaScript-based, performant)
+            if (trustedByContainer) {
+                let scrollSpeed = 0.5; // pixels per frame
+                let isUserScrolling = false;
+                let userScrollTimeout;
+                let lastScrollLeft = 0;
+                
+                // Detect actual user scrolling (not auto-scroll)
+                trustedByContainer.addEventListener('scroll', () => {
+                    const currentScroll = trustedByContainer.scrollLeft;
+                    // If scroll changed by more than our auto-scroll speed, user is scrolling
+                    if (Math.abs(currentScroll - lastScrollLeft) > scrollSpeed * 2) {
+                        isUserScrolling = true;
+                        clearTimeout(userScrollTimeout);
+                        userScrollTimeout = setTimeout(() => {
+                            isUserScrolling = false;
+                        }, 3000); // Resume after 3 seconds of no user interaction
+                    }
+                    lastScrollLeft = currentScroll;
+                }, { passive: true });
+                
+                // Auto-scroll animation
+                function autoScroll() {
+                    if (!isUserScrolling && trustedByContainer) {
+                        trustedByContainer.scrollLeft += scrollSpeed;
+                        lastScrollLeft = trustedByContainer.scrollLeft;
+                        
+                        // Reset to beginning when reaching halfway (seamless loop)
+                        const maxScroll = trustedByContainer.scrollWidth / 2;
+                        if (trustedByContainer.scrollLeft >= maxScroll) {
+                            trustedByContainer.scrollLeft = 0;
+                            lastScrollLeft = 0;
+                        }
+                    }
+                    requestAnimationFrame(autoScroll);
+                }
+                
+                // Start auto-scroll
+                requestAnimationFrame(autoScroll);
+            }
         });
     </script>
     """
