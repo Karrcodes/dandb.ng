@@ -251,6 +251,35 @@ def fix_site():
         
         /* Comprehensive Mobile Optimizations */
         @media (max-width: 768px) {
+            /* CRITICAL: Override Wix's fixed desktop width */
+            #SITE_HEADER, #SITE_FOOTER, #PAGES_CONTAINER, #masterPage,
+            #comp-kxf9usw5, body, html, #SITE_CONTAINER, #site-root,
+            [data-mesh-id*="inlineContent"], [data-mesh-id*="gridContainer"] {
+                min-width: 100% !important;
+                width: 100% !important;
+                max-width: 100vw !important;
+            }
+            
+            /* Force all containers to be mobile-friendly */
+            div[id^="comp-"] {
+                max-width: 100vw !important;
+                overflow-x: hidden !important;
+            }
+            
+            /* Fix grid layouts - force single column */
+            [data-mesh-id*="gridContainer"] {
+                grid-template-columns: 100% !important;
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+            
+            /* Reset all fixed left positions */
+            [data-mesh-id*="gridContainer"] > * {
+                left: 0 !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+            
             /* Ensure no horizontal overflow */
             body, html {
                 overflow-x: hidden !important;
@@ -271,6 +300,7 @@ def fix_site():
             /* Optimize galleries for mobile */
             .pro-gallery {
                 -webkit-overflow-scrolling: touch;
+                max-width: 100vw !important;
             }
             
             /* Ensure scroll indicators are visible on mobile */
@@ -294,10 +324,16 @@ def fix_site():
             /* Optimize spacing for mobile */
             .trusted-marquee-container {
                 height: 100px !important;
+                max-width: 100vw !important;
             }
             
             .trusted-logo {
                 height: 60px !important;
+            }
+            
+            /* Hide elements that cause horizontal scroll */
+            [style*="left: -"] {
+                left: 0 !important;
             }
         }
         
