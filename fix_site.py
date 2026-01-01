@@ -249,91 +249,129 @@ def fix_site():
             .trusted-marquee-track { gap: 30px; }
         }
         
-        /* Comprehensive Mobile Optimizations */
+        /* Simplified Mobile-Only Layout */
         @media (max-width: 768px) {
-            /* CRITICAL: Override Wix's fixed desktop width */
-            #SITE_HEADER, #SITE_FOOTER, #PAGES_CONTAINER, #masterPage,
-            #comp-kxf9usw5, body, html, #SITE_CONTAINER, #site-root,
-            [data-mesh-id*="inlineContent"], [data-mesh-id*="gridContainer"] {
-                min-width: 100% !important;
-                width: 100% !important;
-                max-width: 100vw !important;
-            }
-            
-            /* Force all containers to be mobile-friendly */
-            div[id^="comp-"] {
-                max-width: 100vw !important;
-                overflow-x: hidden !important;
-            }
-            
-            /* Fix grid layouts - force single column */
-            [data-mesh-id*="gridContainer"] {
-                grid-template-columns: 100% !important;
-                padding-left: 20px !important;
-                padding-right: 20px !important;
-            }
-            
-            /* Reset all fixed left positions */
-            [data-mesh-id*="gridContainer"] > * {
-                left: 0 !important;
+            /* RESET: Remove all Wix complexity on mobile */
+            * {
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
                 margin-left: 0 !important;
                 margin-right: 0 !important;
             }
             
-            /* Ensure no horizontal overflow */
+            /* Force everything to stack vertically */
             body, html {
                 overflow-x: hidden !important;
-                max-width: 100vw;
+                width: 100vw !important;
+                max-width: 100vw !important;
             }
             
-            /* Make header mobile-friendly */
+            /* Simplify header */
             #SITE_HEADER {
+                position: fixed !important;
+                top: 0 !important;
+                width: 100% !important;
                 min-width: 100% !important;
+                background: rgba(0, 0, 0, 0.9) !important;
+                padding: 10px 0 !important;
+                z-index: 9999 !important;
             }
             
-            /* Improve touch targets - minimum 44x44px */
-            button, a, input, select, textarea {
-                min-height: 44px;
-                min-width: 44px;
+            /* Hide desktop menu, show mobile-friendly version */
+            #comp-kxm44xig {
+                display: none !important;
+            }
+            
+            /* Center logo */
+            #comp-kxm450bm {
+                margin: 0 auto !important;
+                display: block !important;
+                text-align: center !important;
+            }
+            
+            /* Force all content containers to full width */
+            #PAGES_CONTAINER, #SITE_PAGES, #masterPage,
+            [data-mesh-id*="inlineContent"],
+            [data-mesh-id*="gridContainer"],
+            div[id^="comp-"] {
+                width: 100% !important;
+                min-width: 100% !important;
+                max-width: 100vw !important;
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+                box-sizing: border-box !important;
+            }
+            
+            /* Stack all grid items vertically */
+            [data-mesh-id*="gridContainer"] {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 20px !important;
+            }
+            
+            /* Make all images responsive */
+            img, video, [data-mesh-id*="image"] {
+                max-width: 100% !important;
+                height: auto !important;
+                width: auto !important;
             }
             
             /* Optimize galleries for mobile */
             .pro-gallery {
-                -webkit-overflow-scrolling: touch;
+                width: 100% !important;
                 max-width: 100vw !important;
+                -webkit-overflow-scrolling: touch;
             }
             
-            /* Ensure scroll indicators are visible on mobile */
-            .pro-gallery-indicator-wrapper::after {
-                font-size: 12px;
-                padding: 6px 10px;
-                right: 10px;
-            }
-            
-            /* Reduce header height on mobile */
-            #SITE_HEADER {
-                padding: 10px 0;
-            }
-            
-            /* Make text more readable on mobile */
-            body {
-                -webkit-text-size-adjust: 100%;
-                text-size-adjust: 100%;
-            }
-            
-            /* Optimize spacing for mobile */
+            /* Trusted By gallery */
             .trusted-marquee-container {
-                height: 100px !important;
+                height: 80px !important;
+                width: 100% !important;
                 max-width: 100vw !important;
             }
             
             .trusted-logo {
-                height: 60px !important;
+                height: 50px !important;
             }
             
-            /* Hide elements that cause horizontal scroll */
-            [style*="left: -"] {
-                left: 0 !important;
+            /* Scroll indicators */
+            .pro-gallery-indicator-wrapper::after {
+                font-size: 11px;
+                padding: 5px 8px;
+                right: 10px;
+            }
+            
+            /* Make text readable */
+            body {
+                font-size: 16px !important;
+                -webkit-text-size-adjust: 100%;
+            }
+            
+            /* Touch targets */
+            button, a {
+                min-height: 44px;
+                min-width: 44px;
+                padding: 12px 20px !important;
+            }
+            
+            /* Hide elements that break layout */
+            [style*="left: -"],
+            [style*="margin: 0px 0px -"] {
+                display: none !important;
+            }
+            
+            /* Footer */
+            #SITE_FOOTER {
+                width: 100% !important;
+                padding: 20px 15px !important;
+                text-align: center !important;
+            }
+            
+            #SITE_FOOTER * {
+                text-align: center !important;
+                margin: 10px auto !important;
             }
         }
         
