@@ -311,20 +311,13 @@ body {
     text-align: center;
 }
 
-/* Reduce spacing for first three galleries (project galleries) */
-.gallery-section:nth-of-type(1),
-.gallery-section:nth-of-type(2),
-.gallery-section:nth-of-type(3) {
+/* Reduce spacing and hide titles for headless galleries */
+.headless-gallery {
     padding: 20px 0;
 }
 
-/* Hide titles and dividers for first three galleries */
-.gallery-section:nth-of-type(1) .gallery-title,
-.gallery-section:nth-of-type(2) .gallery-title,
-.gallery-section:nth-of-type(3) .gallery-title,
-.gallery-section:nth-of-type(1) .gallery-divider,
-.gallery-section:nth-of-type(2) .gallery-divider,
-.gallery-section:nth-of-type(3) .gallery-divider {
+.headless-gallery .gallery-title,
+.headless-gallery .gallery-divider {
     display: none;
 }
 
