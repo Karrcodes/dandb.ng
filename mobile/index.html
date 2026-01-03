@@ -19,12 +19,18 @@
         document.addEventListener('DOMContentLoaded', () => {
             const loadMoreBtn = document.getElementById('loadMoreBtn');
             const logos = document.querySelectorAll('.trusted-logo');
+            let isExpanded = false;
 
             loadMoreBtn.addEventListener('click', () => {
-                logos.forEach(logo => {
-                    logo.style.display = 'block';
+                isExpanded = !isExpanded;
+
+                logos.forEach((logo, index) => {
+                    if (index >= 4) {
+                        logo.style.display = isExpanded ? 'block' : 'none';
+                    }
                 });
-                loadMoreBtn.classList.add('hidden');
+
+                loadMoreBtn.textContent = isExpanded ? 'Show Less' : 'Load More';
             });
         });
     </script>
@@ -106,6 +112,41 @@
         </div>
 
         <button class="load-more-btn" id="loadMoreBtn">Load More</button>
+    </section>
+
+    <!-- Design Gallery Section -->
+    <section class="gallery-section">
+        <h2 class="gallery-title">DESIGN</h2>
+        <div class="gallery-divider"></div>
+
+        <div class="gallery-scroll">
+            <img src="media/Plot 99 CBD/Enscape_2022-01-05-00-21-25.png" alt="Design project 1" class="gallery-image">
+            <img src="media/Multiple Aluminum/Populated Render.png" alt="Design project 2" class="gallery-image">
+            <img src="media/NNPC/02 - Main Report - Numbered_Page_161_Image_0002.png" alt="Design project 3"
+                class="gallery-image">
+            <img src="media/NNPC/02 - Main Report - Numbered_Page_196_Image_0002.png" alt="Design project 4"
+                class="gallery-image">
+            <img src="media/NNPC/02 - Main Report - Numbered_Page_183_Image_0002.png" alt="Design project 5"
+                class="gallery-image">
+        </div>
+    </section>
+
+    <!-- Construction Gallery Section -->
+    <section class="gallery-section">
+        <h2 class="gallery-title">CONSTRUCTION</h2>
+        <div class="gallery-divider"></div>
+
+        <div class="gallery-scroll">
+            <img src="media/Build/IMG_2682.JPG.jpg" alt="Construction project 1" class="gallery-image">
+            <img src="media/GoodHomes/Enscape_2022-01-05-00-21-25.png" alt="Construction project 2"
+                class="gallery-image">
+            <img src="media/NNPC/02 - Main Report - Numbered_Page_169_Image_0002.png" alt="Construction project 3"
+                class="gallery-image">
+            <img src="media/NNPC/02 - Main Report - Numbered_Page_166_Image_0002.png" alt="Construction project 4"
+                class="gallery-image">
+            <img src="media/NNPC/02 - Main Report - Numbered_Page_199_Image_0002.png" alt="Construction project 5"
+                class="gallery-image">
+        </div>
     </section>
 </body>
 
