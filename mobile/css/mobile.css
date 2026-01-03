@@ -504,8 +504,8 @@ body {
 
 /* Footer Section */
 .footer-section {
-    background-color: #1a1a1a;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #000000;
     padding: 60px 20px 40px 20px;
     text-align: center;
 }
@@ -517,6 +517,7 @@ body {
     letter-spacing: 2px;
     margin-bottom: 30px;
     text-transform: uppercase;
+    color: #000000;
 }
 
 .footer-info {
@@ -524,11 +525,11 @@ body {
     font-size: 14px;
     line-height: 2;
     margin-bottom: 40px;
-    color: #cccccc;
+    color: #333333;
 }
 
 .footer-link {
-    color: #cccccc;
+    color: #333333;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -536,7 +537,7 @@ body {
 .footer-divider {
     width: 60px;
     height: 1px;
-    background-color: #444;
+    background-color: #000000;
     margin: 0 auto 30px auto;
 }
 
