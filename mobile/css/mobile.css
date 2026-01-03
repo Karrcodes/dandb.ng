@@ -1,0 +1,258 @@
+/* ==========================================
+   MOBILE-FIRST STYLES FOR D&B ARCHITECTURE
+   ========================================== */
+
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* ==========================================
+   MOBILE HEADER
+   ========================================== */
+
+.mobile-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.mobile-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+}
+
+.mobile-logo img {
+    height: 50px;
+    width: auto;
+    display: block;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1001;
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    width: 28px;
+    height: 2px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 999;
+}
+
+.mobile-nav.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-nav-list {
+    list-style: none;
+    text-align: center;
+}
+
+.mobile-nav-list li {
+    margin: 2rem 0;
+}
+
+.mobile-nav-list a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    display: block;
+    padding: 0.5rem;
+}
+
+.mobile-nav-list a:hover,
+.mobile-nav-list a:active {
+    color: #999;
+}
+
+/* ==========================================
+   MOBILE HERO SECTION
+   ========================================== */
+
+.mobile-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    /* Dynamic viewport height for mobile */
+    overflow: hidden;
+}
+
+.mobile-hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.mobile-hero-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Dark overlay for better text readability */
+.mobile-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.5) 100%);
+    z-index: 2;
+}
+
+.mobile-hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+
+.mobile-hero-title {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
+}
+
+.mobile-hero-subtitle {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    line-height: 1.6;
+    color: #fff;
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+    text-transform: uppercase;
+}
+
+/* ==========================================
+   RESPONSIVE ADJUSTMENTS
+   ========================================== */
+
+/* Small phones */
+@media (max-width: 375px) {
+    .mobile-header-container {
+        padding: 0.75rem 1rem;
+    }
+
+    .mobile-logo img {
+        height: 40px;
+    }
+
+    .mobile-nav-list a {
+        font-size: 1.25rem;
+    }
+}
+
+/* Landscape orientation */
+@media (orientation: landscape) and (max-height: 500px) {
+    .mobile-hero {
+        height: 100vh;
+    }
+
+    .mobile-hero-content {
+        top: 55%;
+    }
+
+    .mobile-hero-title {
+        font-size: clamp(2rem, 10vw, 3rem);
+        margin-bottom: 0.5rem;
+    }
+
+    .mobile-hero-subtitle {
+        font-size: clamp(0.875rem, 3vw, 1rem);
+    }
+}
+
+/* Tablets in portrait */
+@media (min-width: 768px) {
+    .mobile-hero-title {
+        font-size: clamp(3rem, 10vw, 5rem);
+    }
+
+    .mobile-hero-subtitle {
+        font-size: clamp(1.25rem, 3vw, 1.5rem);
+    }
+}

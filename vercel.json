@@ -1,0 +1,15 @@
+{
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "has": [
+                {
+                    "type": "header",
+                    "key": "user-agent",
+                    "value": ".*(Mobile|Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini).*"
+                }
+            ],
+            "destination": "/mobile/$1"
+        }
+    ]
+}
