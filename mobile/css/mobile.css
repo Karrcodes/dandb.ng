@@ -674,3 +674,8 @@ body {
     display: block;
     margin-bottom: 25px;
 }
+
+.selected-projects-section {
+    background-color: #ffffff;
+    padding-bottom: 0;
+}
