@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&B Architecture</title>
+    <script>
+        // Immediate redirect - no delay
+        (function () {
+            // Detect mobile devices
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const isSmallScreen = window.innerWidth <= 768;
+
+            // Redirect based on device type
+            if (isMobile || isSmallScreen) {
+                window.location.replace('/mobile/index.html');
+            } else {
+                window.location.replace('/new-site/index.html');
+            }
+        })();
+    </script>
+</head>
+
+<body>
+    <!-- Redirecting... -->
+</body>
+
+</html>
