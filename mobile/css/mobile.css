@@ -515,7 +515,8 @@ html {
 .footer-section {
     background-color: #ffffff;
     color: #000000;
-    padding: 60px 20px 40px 20px;
+    padding: 30px 20px 40px 20px;
+    /* Reduced top padding */
     text-align: center;
 }
 
@@ -674,7 +675,10 @@ html {
 .project-card {
     margin-bottom: 80px;
     padding: 0 40px;
-    /* Increased padding */
+}
+
+.project-card:last-child {
+    margin-bottom: 0;
 }
 
 .project-image {
