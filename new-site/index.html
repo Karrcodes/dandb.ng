@@ -19,6 +19,25 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="media/Logos/logo.png">
+
+    <!-- Mobile Redirection Script -->
+    <script>
+        (function () {
+            // Check if we're already on the mobile site
+            if (window.location.pathname.includes('/mobile/')) {
+                return;
+            }
+
+            // Detect mobile devices
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const isSmallScreen = window.innerWidth <= 768;
+
+            // Redirect to mobile site if on mobile device or small screen
+            if (isMobile || isSmallScreen) {
+                window.location.href = '/mobile/index.html';
+            }
+        })();
+    </script>
 </head>
 
 <body>
