@@ -661,3 +661,16 @@ body {
         height: 190px;
     }
 }
+
+.project-card {
+    margin-bottom: 80px;
+    padding: 0 40px;
+    /* Increased padding */
+}
+
+.project-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 25px;
+}
