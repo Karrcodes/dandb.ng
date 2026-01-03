@@ -13,6 +13,21 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="media/Logos/logo.png">
     <!-- Cache bust: 2026-01-03-12:58 -->
+
+    <!-- Load More Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const logos = document.querySelectorAll('.trusted-logo');
+
+            loadMoreBtn.addEventListener('click', () => {
+                logos.forEach(logo => {
+                    logo.style.display = 'block';
+                });
+                loadMoreBtn.classList.add('hidden');
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -71,6 +86,26 @@
                 </svg>
             </a>
         </div>
+    </section>
+
+    <!-- Trusted By Section -->
+    <section class="trusted-by-section">
+        <h2 class="trusted-by-title">TRUSTED BY</h2>
+        <div class="trusted-by-divider"></div>
+
+        <div class="trusted-by-grid">
+            <img src="media/Logos/cropped-kdsg-logo.png" alt="Kaduna State Government" class="trusted-logo">
+            <img src="media/Logos/ZMSG.png" alt="Zamfara State Government" class="trusted-logo">
+            <img src="media/Logos/fct-logo_0.png" alt="FCT Sokoto" class="trusted-logo">
+            <img src="media/Logos/Yobe_State_Logo.png" alt="Yobe State" class="trusted-logo">
+            <img src="media/Logos/Taraba-Logo3.png" alt="Taraba State" class="trusted-logo" style="display: none;">
+            <img src="media/Logos/NNPC.png" alt="NNPC" class="trusted-logo" style="display: none;">
+            <img src="media/Logos/central-bank-of-nigeria-cbn-logo-42FD3093EE-seeklogo.com.png"
+                alt="Central Bank of Nigeria" class="trusted-logo" style="display: none;">
+            <img src="media/Logos/NSITF-logo.png" alt="NSITF" class="trusted-logo" style="display: none;">
+        </div>
+
+        <button class="load-more-btn" id="loadMoreBtn">Load More</button>
     </section>
 </body>
 
