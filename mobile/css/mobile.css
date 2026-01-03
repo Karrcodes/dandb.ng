@@ -502,73 +502,49 @@ body {
     margin: 0 auto;
 }
 
-/* Selected Projects Section */
-.selected-projects-section {
-    padding: 60px 0;
-    background-color: #ffffff;
-}
-
-.selected-header {
+/* Footer Section */
+.footer-section {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 60px 20px 40px 20px;
     text-align: center;
-    margin-bottom: 40px;
-    padding: 0 20px;
 }
 
-.selected-title {
-    font-family: 'Avenir', sans-serif;
-    font-size: 28px;
-    font-weight: 300;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-}
-
-.selected-divider {
-    width: 120px;
-    height: 1px;
-    background-color: #000;
-    margin: 0 auto;
-}
-
-.project-card {
-    margin-bottom: 80px;
-    padding: 0 20px;
-}
-
-.project-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    margin-bottom: 25px;
-}
-
-.project-name {
+.footer-logo {
     font-family: 'Avenir', sans-serif;
     font-size: 24px;
-    font-weight: 400;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.project-detail-row {
-    font-family: 'Avenir', sans-serif;
-    font-size: 16px;
-    line-height: 1.8;
-    margin-bottom: 5px;
-    color: #000;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.detail-label {
     font-weight: 600;
-    margin-right: 5px;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
 }
 
-.detail-value {
-    font-weight: 400;
-    color: #333;
+.footer-info {
+    font-family: 'Avenir', sans-serif;
+    font-size: 14px;
+    line-height: 2;
+    margin-bottom: 40px;
+    color: #cccccc;
+}
+
+.footer-link {
+    color: #cccccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-divider {
+    width: 60px;
+    height: 1px;
+    background-color: #444;
+    margin: 0 auto 30px auto;
+}
+
+.copyright {
+    font-family: 'Avenir', sans-serif;
+    font-size: 12px;
+    color: #666666;
+    letter-spacing: 1px;
 }
 
 .services-title {
