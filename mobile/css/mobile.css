@@ -313,8 +313,17 @@ body {
 
 /* Reduce spacing and hide titles for headless galleries */
 /* Body Font Update */
+/* Body Font Update */
 body {
     font-family: 'Avenir', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    /* Ensure background is white */
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-color: #ffffff;
 }
 
 /* Reduce spacing and hide titles for headless galleries */
