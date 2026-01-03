@@ -449,6 +449,58 @@ body {
     margin: 0 auto 40px auto;
 }
 
+/* Services Section */
+.services-section {
+    padding: 60px 20px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.services-title {
+    font-family: 'Avenir', sans-serif;
+    font-size: 28px;
+    font-weight: 300;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.services-divider {
+    width: 120px;
+    height: 1px;
+    background-color: #000;
+    margin: 0 auto 60px auto;
+}
+
+.service-item {
+    margin-bottom: 60px;
+}
+
+.service-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 20px;
+}
+
+.service-name {
+    font-family: 'Avenir', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.service-desc {
+    font-family: 'Avenir', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
 .gallery-scroll {
     display: flex;
     gap: 8px;
