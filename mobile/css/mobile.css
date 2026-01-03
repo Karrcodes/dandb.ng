@@ -451,9 +451,124 @@ body {
 
 /* Services Section */
 .services-section {
-    padding: 60px 20px;
+    padding: 0 20px 60px 20px;
+    /* Reduced top padding to move it up */
     background-color: #ffffff;
     text-align: center;
+}
+
+.services-title {
+    font-family: 'Avenir', sans-serif;
+    font-size: 28px;
+    font-weight: 300;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.services-divider {
+    width: 120px;
+    height: 1px;
+    background-color: #000;
+    margin: 0 auto 60px auto;
+}
+
+.service-item {
+    margin-bottom: 60px;
+}
+
+.service-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 20px;
+}
+
+.service-name {
+    font-family: 'Avenir', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.service-desc {
+    font-family: 'Avenir', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Selected Projects Section */
+.selected-projects-section {
+    padding: 60px 0;
+    background-color: #ffffff;
+}
+
+.selected-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 0 20px;
+}
+
+.selected-title {
+    font-family: 'Avenir', sans-serif;
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.selected-divider {
+    width: 120px;
+    height: 1px;
+    background-color: #000;
+    margin: 0 auto;
+}
+
+.project-card {
+    margin-bottom: 80px;
+    padding: 0 20px;
+}
+
+.project-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 25px;
+}
+
+.project-name {
+    font-family: 'Avenir', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.project-detail-row {
+    font-family: 'Avenir', sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 5px;
+    color: #000;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.detail-label {
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+.detail-value {
+    font-weight: 400;
+    color: #333;
 }
 
 .services-title {
