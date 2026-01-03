@@ -1,7 +1,7 @@
 {
     "rewrites": [
         {
-            "source": "/(.*)",
+            "source": "/",
             "has": [
                 {
                     "type": "header",
@@ -9,7 +9,11 @@
                     "value": ".*(Mobile|Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini).*"
                 }
             ],
-            "destination": "/mobile/$1"
+            "destination": "/mobile/index.html"
+        },
+        {
+            "source": "/",
+            "destination": "/new-site/index.html"
         }
     ]
 }
