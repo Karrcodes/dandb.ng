@@ -311,6 +311,23 @@ body {
     text-align: center;
 }
 
+/* Reduce spacing for first three galleries (project galleries) */
+.gallery-section:nth-of-type(2),
+.gallery-section:nth-of-type(3),
+.gallery-section:nth-of-type(4) {
+    padding: 20px 0;
+}
+
+/* Hide titles and dividers for first three galleries */
+.gallery-section:nth-of-type(2) .gallery-title,
+.gallery-section:nth-of-type(3) .gallery-title,
+.gallery-section:nth-of-type(4) .gallery-title,
+.gallery-section:nth-of-type(2) .gallery-divider,
+.gallery-section:nth-of-type(3) .gallery-divider,
+.gallery-section:nth-of-type(4) .gallery-divider {
+    display: none;
+}
+
 .gallery-title {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     font-size: 28px;
