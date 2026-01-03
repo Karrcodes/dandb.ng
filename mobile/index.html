@@ -15,50 +15,23 @@
 </head>
 
 <body>
-    <!-- Mobile Header -->
-    <header class="mobile-header">
-        <div class="mobile-header-container">
-            <a href="#home" class="mobile-logo">
-                <img src="media/Logos/logo.png" alt="D&B Architecture Logo">
-            </a>
-
-            <!-- Mobile Menu Toggle -->
-            <button class="mobile-menu-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+    <!-- Mobile Hero Section -->
+    <section class="mobile-hero">
+        <!-- Video Background -->
+        <div class="mobile-hero-video">
+            <video autoplay muted loop playsinline>
+                <source src="media/video/hero_video.mp4" type="video/mp4">
+            </video>
         </div>
 
-        <!-- Mobile Navigation -->
-        <nav class="mobile-nav">
-            <ul class="mobile-nav-list">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#works">Works</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+        <!-- Overlay -->
+        <div class="mobile-hero-overlay"></div>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Mobile Hero Section -->
-        <section id="home" class="mobile-hero">
-            <div class="mobile-hero-video">
-                <video autoplay muted loop playsinline poster="media/video/hero_poster.jpg">
-                    <source src="media/video/hero_video.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div class="mobile-hero-content">
-                <h1 class="mobile-hero-title">D&B<br>ARCHITECTURE</h1>
-                <p class="mobile-hero-subtitle">Award-Winning Design<br>& Construction</p>
-            </div>
-        </section>
-    </main>
-
-    <!-- Scripts -->
-    <script src="js/mobile-menu.js"></script>
+        <!-- Centered Logo -->
+        <div class="mobile-hero-logo">
+            <img src="media/Company Logos/Transparent.png" alt="D&B Architecture Logo">
+        </div>
+    </section>
 </body>
 
 </html>
